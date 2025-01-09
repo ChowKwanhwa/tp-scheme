@@ -15,7 +15,7 @@ interface BuyCardProps {
   raised: string;
 }
 
-const PRESALE_ADDRESS = '0x4048F599B9b00B166e1b7003de0C359782a1b675';
+const PRESALE_ADDRESS = '0x38CbF5e07c02f7146bEFcCC37062AA81DF10E66A';
 
 export default function BuyCard({
   minBnb,
