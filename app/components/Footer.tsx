@@ -1,11 +1,34 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Sun, Moon } from 'lucide-react';
 
 const Footer = () => {
+  const [pinkSalePrice, setPinkSalePrice] = useState<string>("$0.00");
+
+  useEffect(() => {
+    const fetchPinkSalePrice = async () => {
+      try {
+        const response = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=pinksale&vs_currencies=usd"
+        );
+        const data = await response.json();
+        if (data.pinksale?.usd) {
+          setPinkSalePrice(`$${data.pinksale.usd.toFixed(2)}`);
+        }
+      } catch (error) {
+        console.error("Error fetching PinkSale price:", error);
+      }
+    };
+
+    fetchPinkSalePrice();
+    const interval = setInterval(fetchPinkSalePrice, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <footer className="w-full bg-white py-6">
       <div className="container mx-auto px-4">
@@ -56,18 +79,18 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4 uppercase text-sm">Follow Us</h3>
             <div className="flex space-x-4">
-              <Link href="#" className="text-gray-600 hover:text-pink-500">
+              <Link href="https://t.me/pinkecosystem" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 2L11 13"></path>
                   <path d="M22 2L15 22L11 13L2 9L22 2z"></path>
                 </svg>
               </Link>
-              <Link href="#" className="text-gray-600 hover:text-pink-500">
+              <Link href="https://x.com/pinkecosystem" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768"></path>
                 </svg>
               </Link>
-              <Link href="#" className="text-gray-600 hover:text-pink-500">
+              <Link href="https://www.facebook.com/pinkecosystem/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                 </svg>
@@ -77,7 +100,14 @@ const Footer = () => {
             {/* PinkSale Price */}
             <div className="mt-6">
               <h3 className="font-semibold mb-2 uppercase text-sm">PinkSale Price</h3>
-              <div className="text-sm text-gray-600">$0.00</div>
+              <a 
+                href="https://www.coingecko.com/en/coins/pinksale" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-sm text-[#FF3B9A] hover:text-[#FF3B9A]/80 cursor-pointer"
+              >
+                {pinkSalePrice}
+              </a>
             </div>
           </div>
 

@@ -22,6 +22,10 @@ export default function BonusBanner() {
     '#FFB6C1'   // 浅粉红
   ];
 
+  const handleClick = () => {
+    window.open('https://www.pink.meme/solana/token/stealth', '_blank');
+  };
+
   if (!isVisible) return null;
 
   return (
@@ -76,6 +80,10 @@ export default function BonusBanner() {
           </span>
           <a 
             href="#" 
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick();
+            }}
             className="ml-2 bg-pink-500 text-white px-3 py-0.5 rounded text-sm font-medium hover:bg-pink-600"
           >
             Go!

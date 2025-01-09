@@ -10,10 +10,16 @@ import TokenomicCard from './components/TokenomicCard';
 import FaqAccordion from './components/FaqAccordion';
 import Disclaimer from './components/Disclaimer';
 import Footer from './components/Footer';
+import { getPresaleConfig, defaultPresaleConfig } from './config/presales';
 
 export default function Home() {
   const searchParams = useSearchParams();
-  const bscAddress = searchParams.get('bsc') || '0x4E467a7F6f3C0c35248aF42937417B3321eAA5e1';
+  const bscAddress = searchParams.get('bsc');
+  const presaleConfig = bscAddress ? getPresaleConfig(bscAddress) : defaultPresaleConfig;
+
+  if (!presaleConfig) {
+    return <div>Presale not found</div>;
+  }
 
   return (
     <>
@@ -27,38 +33,40 @@ export default function Home() {
             {/* PresaleCard - takes up 2 columns on large screens */}
             <div className="lg:col-span-2">
               <PresaleCard
-                name="ToadSwap"
-                symbol="TOAD"
-                decimals={18}
-                about="ToadSwap is a revolutionary DeFi platform that combines the best features of AMM and orderbook trading."
-                totalSupply="1,000,000,000"
-                poolAddress={bscAddress}
-                tokenAddress={bscAddress}
-                tokensForPresale="500,000,000"
-                tokensForLiquidity="300,000,000"
-                softCap="100 BNB"
-                hardCap="200 BNB"
-                presaleRate="100,000 TOAD per BNB"
-                listingRate="90,000 TOAD per BNB"
-                startTime="2025-01-15 14:00 UTC"
-                endTime="2025-01-22 14:00 UTC"
-                unsoldTokens="Burn"
-                listingOn="PancakeSwap"
-                liquidityPercent="60%"
-                liquidityUnlockedTime="2026-01-15 14:00 UTC"
+                name={presaleConfig.name}
+                symbol={presaleConfig.symbol}
+                decimals={presaleConfig.decimals}
+                about={presaleConfig.about}
+                totalSupply={presaleConfig.totalSupply}
+                poolAddress={bscAddress || ""}
+                tokenAddress={bscAddress || ""}
+                tokensForPresale={presaleConfig.tokensForPresale}
+                tokensForLiquidity={presaleConfig.tokensForLiquidity}
+                softCap={presaleConfig.softCap}
+                hardCap={presaleConfig.hardCap}
+                presaleRate={presaleConfig.presaleRate}
+                listingRate={presaleConfig.listingRate}
+                startTime={presaleConfig.startTime}
+                endTime={presaleConfig.endTime}
+                unsoldTokens={presaleConfig.unsoldTokens}
+                listingOn={presaleConfig.listingOn}
+                liquidityPercent={presaleConfig.liquidityPercent}
+                liquidityUnlockedTime={presaleConfig.liquidityUnlockedTime}
+                bannerImage={presaleConfig.bannerImage}
+                logoImage={presaleConfig.logoImage}
+                socials={presaleConfig.socials}
               />
             </div>
 
             {/* BuyCard - takes up 1 column */}
             <div className="lg:col-span-1">
               <BuyCard
-                presaleEndsIn="3 days 5 hours 32 minutes"
-                minBnb={0.1}
+                minBnb={0.005}
                 maxBnb={2}
-                minBuy="0.1 BNB"
+                minBuy="0.005 BNB"
                 maxBuy="2 BNB"
                 progress={45}
-                raised="90/200 BNB"
+                raised="180/200 BNB"
               />
             </div>
           </div>
@@ -67,11 +75,11 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
               <TokenomicCard
-                tokenName="TOAD"
-                presalePercent={50}
-                liquidityPercent={30}
-                unlockedPercent={10}
-                burntPercent={10}
+                tokenName={presaleConfig.symbol}
+                presalePercent={presaleConfig.tokenomics.presalePercent}
+                liquidityPercent={presaleConfig.tokenomics.liquidityPercent}
+                unlockedPercent={presaleConfig.tokenomics.unlockedPercent}
+                burntPercent={presaleConfig.tokenomics.burntPercent}
               />
               <FaqAccordion />
             </div>

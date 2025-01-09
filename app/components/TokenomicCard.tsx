@@ -81,7 +81,7 @@ const TokenomicCard: React.FC<TokenomicCardProps> = ({
               <div className="relative">
                 <Doughnut data={data} options={options} />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
-                  <div className="text-sm text-pink-500 -translate-y-6">{tokenName}</div>
+                  <div className="text-sm text-pink-500 -translate-y-1">{tokenName}</div>
                 </div>
               </div>
             </div>

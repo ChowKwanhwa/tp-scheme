@@ -4,6 +4,10 @@ import Image from 'next/image';
 import WalletConnect from './WalletConnect';
 
 export default function Header() {
+  const handlePinkSaleClick = () => {
+    window.open('https://www.pinksale.finance/', '_blank');
+  };
+
   return (
     <header className="w-full bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 lg:px-6">
@@ -11,7 +15,7 @@ export default function Header() {
           {/* Left group */}
           <div className="flex items-center gap-4">
             {/* Logo */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={handlePinkSaleClick}>
               <Image 
                 src="/pinksale-logo.png" 
                 alt="PinkSale" 

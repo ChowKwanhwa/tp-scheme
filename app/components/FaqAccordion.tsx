@@ -12,32 +12,24 @@ import {
 
 const faqs = [
   {
-    question: "What is Toad?",
-    answer: "Toad is a community-driven meme token inspired by PEPE, featuring 0% tax, 100% LP burned at launch, and 0% team tokens. The project follows the tradition of anonymous development, similar to Bitcoin's creator Satoshi Nakamoto."
+    question: "What is KYC?",
+    answer: "Know Your Customer (KYC) is a process whereby the project owner has shared their identification documents with PinkSale. KYC is used as a deterrent method to reduce illicit and deceptive behaviour."
   },
   {
-    question: "How can I participate in the presale?",
-    answer: "You can participate in the presale by connecting your wallet and sending BNB to the presale contract. The minimum contribution is 0.1 BNB and the maximum is 2 BNB per wallet."
+    question: "What is an Audit?",
+    answer: "The Audit badge details that the smart contract has been tested and analysed by a 3rd party service."
   },
   {
-    question: "When does the presale start and end?",
-    answer: "The presale starts on February 22, 2024, at 13:00 UTC and ends on February 22, 2024, at 14:00 UTC."
+    question: "What is SAFU?",
+    answer: "The SAFU badge demonstrates that the contract has been created by a PinkSale verified partner. SAFU benefits can be found via: https://docs.pinksale.finance/important/safu-contract"
   },
   {
-    question: "What happens to unsold tokens?",
-    answer: "All unsold tokens will be burned (🔥), ensuring that the token supply remains limited and potentially increasing value for holders."
+    question: "What is Doxx?",
+    answer: "Projects certified with the Doxx badge highlights that the projects owner has completed a video AMA within their community, and that their submission to PinkSale matches their KYC information."
   },
   {
-    question: "Where will Toad be listed?",
-    answer: "Toad will be listed on Pancakeswap immediately after the presale ends, with 51% of the tokens locked for liquidity."
-  },
-  {
-    question: "Is the liquidity locked?",
-    answer: "Yes, 51% of the tokens will be locked for liquidity until February 21, 2025 (approximately 1 month from now)."
-  },
-  {
-    question: "What is the presale and listing rate?",
-    answer: "Both the presale and listing rate are 1 BNB = 4,800,000 BabyTrump tokens, ensuring there is no price difference between presale and listing."
+    question: "What is DYOR?",
+    answer: "DYOR aims to reduce the number of uninformed investors in cryptocurrency. It encourages them to research and understand a cryptocurrency before investing so that they can answer precisely why they are buying that currency and supporting that project. The term is also often used as a disclaimer when cryptocurrency traders and enthusiasts make public posts or share their market analyses on social media platforms."
   }
 ];
 
