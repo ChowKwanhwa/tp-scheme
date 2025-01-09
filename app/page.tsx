@@ -61,9 +61,9 @@ export default function Home() {
             {/* BuyCard - takes up 1 column */}
             <div className="lg:col-span-1">
               <BuyCard
-                minBnb={0.005}
+                minBnb={0.2}
                 maxBnb={2}
-                minBuy="0.005 BNB"
+                minBuy="0.2 BNB"
                 maxBuy="2 BNB"
                 progress={45}
                 raised="180/200 BNB"
