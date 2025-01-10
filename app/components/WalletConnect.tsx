@@ -83,6 +83,36 @@ const WalletInfo = () => {
   const switchChain = useSwitchChain();
   const previousStatus = useRef(connectionStatus);
   
+  // 自动连接钱包
+  useEffect(() => {
+    const connectWallet = async () => {
+      if (connectionStatus === "disconnected") {
+        try {
+          if (window.ethereum?.isTokenPocket) {
+            // 连接 TokenPocket
+            await window.ethereum.request({
+              method: 'eth_requestAccounts'
+            });
+          } else if (window.ethereum?.isMetaMask) {
+            // 连接 MetaMask
+            await window.ethereum.request({
+              method: 'eth_requestAccounts'
+            });
+          }
+        } catch (error) {
+          console.error("Error connecting wallet:", error);
+        }
+      }
+    };
+
+    // 页面加载后延迟一小段时间再连接，确保钱包插件已完全加载
+    const timer = setTimeout(() => {
+      connectWallet();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [connectionStatus]);
+
   // 处理连接状态变化
   useEffect(() => {
     const handleConnection = async () => {

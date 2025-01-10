@@ -1,22 +1,41 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import { getPresaleConfig, defaultPresaleConfig } from '@/app/config/presales';
-import PresaleCard from '@/app/components/PresaleCard';
-import BuyCard from '@/app/components/BuyCard';
-import TokenomicCard from '@/app/components/TokenomicCard';
-import FaqAccordion from '@/app/components/FaqAccordion';
+import { useSearchParams } from 'next/navigation';
+import { getPresaleConfig, defaultPresaleConfig } from '../config/presales';
+import PresaleCard from '../components/PresaleCard';
+import BuyCard from '../components/BuyCard';
+import TokenomicCard from '../components/TokenomicCard';
+import FaqAccordion from '../components/FaqAccordion';
+import Header from '../components/Header';
+import Trending from '../components/Trending';
+import BonusBanner from '../components/BonusBanner';
+import Disclaimer from '../components/Disclaimer';
+import Footer from '../components/Footer';
 
 export default function PresalePage() {
-  const params = useParams();
-  const presaleConfig = params.id ? getPresaleConfig(params.id as string) : defaultPresaleConfig;
+  const searchParams = useSearchParams();
+  const chain = searchParams.get('chain');
+  const contract = searchParams.get('contract');
+
+  // 直接使用合约地址作为标识符
+  const presaleConfig = contract ? getPresaleConfig(contract) : defaultPresaleConfig;
 
   if (!presaleConfig) {
-    return <div>Presale not found</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Presale Not Found</h1>
+          <p className="text-gray-600">The requested presale does not exist.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <BonusBanner />
+      <Header />
+      <Trending />
       <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
         {/* PresaleCard and BuyCard */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -28,8 +47,8 @@ export default function PresalePage() {
               decimals={presaleConfig.decimals}
               about={presaleConfig.about}
               totalSupply={presaleConfig.totalSupply}
-              poolAddress={params.id as string}
-              tokenAddress={params.id as string}
+              poolAddress={contract || ""}
+              tokenAddress={contract || ""}
               tokensForPresale={presaleConfig.tokensForPresale}
               tokensForLiquidity={presaleConfig.tokensForLiquidity}
               softCap={presaleConfig.softCap}
@@ -51,12 +70,12 @@ export default function PresalePage() {
           {/* BuyCard - takes up 1 column */}
           <div className="lg:col-span-1">
             <BuyCard
-              minBnb={0.1}
-              maxBnb={2}
-              minBuy="0.1 BNB"
-              maxBuy="2 BNB"
-              progress={45}
-              raised="90/200 BNB"
+              minBnb={presaleConfig.buyCard.minBnb}
+              maxBnb={presaleConfig.buyCard.maxBnb}
+              minBuy={`${presaleConfig.buyCard.minBnb} BNB`}
+              maxBuy={`${presaleConfig.buyCard.maxBnb} BNB`}
+              progress={presaleConfig.buyCard.progress}
+              raised={presaleConfig.buyCard.amountRaised}
             />
           </div>
         </div>
@@ -74,6 +93,22 @@ export default function PresalePage() {
             <FaqAccordion />
           </div>
         </div>
+      </div>
+
+      {/* Top Divider */}
+      <div className="w-full h-[1px] bg-gray-200 my-6" />
+
+      {/* Disclaimer */}
+      <div className="max-w-7xl mx-auto px-4">
+        <Disclaimer />
+      </div>
+
+      {/* Bottom Divider */}
+      <div className="w-full h-[1px] bg-gray-200 my-6" />
+      
+      {/* Footer */}
+      <div className="max-w-7xl mx-auto px-4">
+        <Footer />
       </div>
     </main>
   );

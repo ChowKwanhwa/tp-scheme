@@ -10,6 +10,7 @@ import TokenomicCard from './components/TokenomicCard';
 import FaqAccordion from './components/FaqAccordion';
 import Disclaimer from './components/Disclaimer';
 import Footer from './components/Footer';
+import PresaleSearch from './components/PresaleSearch';
 import { getPresaleConfig, defaultPresaleConfig } from './config/presales';
 
 export default function Home() {
@@ -65,7 +66,7 @@ export default function Home() {
                 maxBnb={2}
                 minBuy="0.2 BNB"
                 maxBuy="2 BNB"
-                progress={45}
+                progress={90}
                 raised="180/200 BNB"
               />
             </div>
@@ -87,12 +88,18 @@ export default function Home() {
 
           {/* Top Divider */}
           <div className="w-full h-[1px] bg-gray-200 my-6" />
+        </div>
 
-          {/* Disclaimer */}
+        {/* Disclaimer */}
+        <div className="max-w-7xl mx-auto px-4">
           <Disclaimer />
+        </div>
 
-          {/* Bottom Divider */}
-          <div className="w-full h-[1px] bg-gray-200 my-6" />
+        {/* Bottom Divider */}
+        <div className="w-full h-[1px] bg-gray-200 my-6" />
+        
+        {/* Footer */}
+        <div className="max-w-7xl mx-auto px-4">
           <Footer />
         </div>
       </main>

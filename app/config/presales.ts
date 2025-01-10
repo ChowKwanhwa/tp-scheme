@@ -18,6 +18,12 @@ interface PresaleConfig {
   liquidityUnlockedTime: string;
   bannerImage: string;
   logoImage: string;
+  buyCard: {
+    minBnb: number;
+    maxBnb: number;
+    amountRaised: string;
+    progress: number;
+  };
   tokenomics: {
     presalePercent: number;
     liquidityPercent: number;
@@ -31,7 +37,11 @@ interface PresaleConfig {
   };
 }
 
-const presales: { [key: string]: PresaleConfig } = {
+// 添加类型定义使代码更清晰
+type ContractAddress = string;
+type PresaleMap = { [contract: ContractAddress]: PresaleConfig };
+
+const presales: PresaleMap = {
   "2XfuoErTtDXnisY1F4PRTUrZ5GDXnsWJrWaz91Qi61Hy": {
     name: "ToadSwap",
     symbol: "TOAD",
@@ -52,6 +62,12 @@ const presales: { [key: string]: PresaleConfig } = {
     liquidityUnlockedTime: "2026-01-15 14:00 UTC",
     bannerImage: "/toad-banner.png",
     logoImage: "/toad-logo.png",
+    buyCard: {
+      minBnb: 0.1,
+      maxBnb: 2,
+      amountRaised: "90/200 BNB",
+      progress: 45
+    },
     tokenomics: {
       presalePercent: 50,
       liquidityPercent: 30,
@@ -84,6 +100,12 @@ const presales: { [key: string]: PresaleConfig } = {
     liquidityUnlockedTime: "2026-01-20 14:00 UTC",
     bannerImage: "/default-banner.jpg",
     logoImage: "/byby-logo.jpg",
+    buyCard: {
+      minBnb: 0.004,
+      maxBnb: 2,
+      amountRaised: "180/200 BNB",
+      progress: 90
+    },
     tokenomics: {
       presalePercent: 60,
       liquidityPercent: 30,
@@ -98,8 +120,8 @@ const presales: { [key: string]: PresaleConfig } = {
   }
 };
 
-export const getPresaleConfig = (address: string): PresaleConfig | null => {
-  return presales[address] || null;
+export const getPresaleConfig = (contract: ContractAddress): PresaleConfig | null => {
+  return presales[contract] || null;
 };
 
 export const defaultPresaleConfig: PresaleConfig = presales["0x5E467a7F6f3C0c35248aF42937417B3321eAA5e2"];
